@@ -6,6 +6,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+  boot.supportedFilesystems = [ "ntfs" ];
   boot.tmpOnTmpfs = true;
   boot.supportedFilesystems = [ "ntfs" ];
   zramSwap.enable = true;
@@ -27,6 +28,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin  ];
+  
   hardware.pulseaudio.enable = false; 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -51,7 +54,14 @@
     pciutils
     usbutils
     discord
+    git
+    firefox
     lutris
+    nur.repos.dukzcry.gamescope
+    corectrl
+    zip
+    unzip
+    openjdk
     psmisc
     gnomeExtensions.appindicator
     mangohud
@@ -78,4 +88,10 @@
   
   hardware.enableRedistributableFirmware = true;
   hardware.opengl.driSupport = true;
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
 }
