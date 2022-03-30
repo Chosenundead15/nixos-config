@@ -18,6 +18,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/6A30-7D31";
+      fsType = "vfat";
+    };
+
   fileSystems."/nixos" =
     { device = "zroot/nixos";
       fsType = "zfs";
@@ -28,14 +33,14 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home/snaider/.steam" =
-    { device = "zroot/steam";
+  fileSystems."/home" =
+    { device = "zroot/home";
       fsType = "zfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/6A30-7D31";
-      fsType = "vfat";
+  fileSystems."/home/snaider/.steam" =
+    { device = "zroot/steam";
+      fsType = "zfs";
     };
 
   swapDevices = [ ];

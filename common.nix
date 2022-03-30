@@ -1,10 +1,12 @@
 { config, pkgs, ...}:
 
 {
+  time.timeZone = "America/Caracas";
   users.extraUsers.snaider = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+  boot.supportedFilesystems = [ "ntfs" ];
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
   networking.networkmanager.enable = true;
@@ -25,6 +27,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin  ];
   
   security.rtkit.enable = true;
   services.pipewire = {
@@ -50,7 +53,17 @@
     discover
     discord
     libsForQt5.bismuth
+    libsForQt5.kdeconnect-kde
     git
+    firefox
+    ktorrent
+    lutris
+    skanlite
+    nur.repos.dukzcry.gamescope
+    corectrl
+    zip
+    unzip
+    openjdk
   ];
 
   programs.steam.enable = true;
@@ -63,10 +76,16 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.flatpak.enable = true;
-  
+  services.gvfs.enable = true;
+
   system.stateVersion = "21.11"; # Did you read the comment?
   
   hardware.enableRedistributableFirmware = true;
   hardware.opengl.driSupport = true;
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
 }
