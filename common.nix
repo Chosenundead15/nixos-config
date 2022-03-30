@@ -8,6 +8,7 @@
   };
   boot.supportedFilesystems = [ "ntfs" ];
   boot.tmpOnTmpfs = true;
+  boot.supportedFilesystems = [ "ntfs" ];
   zramSwap.enable = true;
   networking.networkmanager.enable = true;
   networking.extraHosts = 
@@ -17,9 +18,9 @@
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # Enable the gnome
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -29,17 +30,20 @@
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin  ];
   
+  hardware.pulseaudio.enable = false; 
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    pulse.enable = true;
+    jack.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "snaider" ];
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -49,20 +53,23 @@
     docker
     pciutils
     usbutils
-    plasma-nm
-    discover
     discord
     git
     firefox
-    ktorrent
     lutris
-    skanlite
     nur.repos.dukzcry.gamescope
     corectrl
     zip
     unzip
     openjdk
+    psmisc
+    gnomeExtensions.appindicator
+    mangohud
+    firefox
+    protonup
   ];
+
+  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
 
   programs.steam.enable = true;
   programs.fish.enable = true;
@@ -75,7 +82,8 @@
   services.openssh.enable = true;
   services.flatpak.enable = true;
   services.gvfs.enable = true;
-
+  services.zfs.autoSnapshot.enable = true;
+  
   system.stateVersion = "21.11"; # Did you read the comment?
   
   hardware.enableRedistributableFirmware = true;
