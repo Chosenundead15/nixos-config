@@ -4,9 +4,9 @@
   imports =
     [
       ./hardware-configuration.nix
-      /etc/nixos/common.nix
+      ../common.nix
     ];
-  
+  time.hardwareClockInLocalTime = true;  
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.blacklistedKernelModules = [ "rtl8xxxu" ];
