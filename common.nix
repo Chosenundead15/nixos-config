@@ -8,7 +8,6 @@
   };
   boot.supportedFilesystems = [ "ntfs" ];
   boot.tmpOnTmpfs = true;
-  boot.supportedFilesystems = [ "ntfs" ];
   zramSwap.enable = true;
   networking.networkmanager.enable = true;
   networking.extraHosts = 
