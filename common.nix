@@ -52,8 +52,6 @@
     plasma-nm
     discover
     discord
-    libsForQt5.bismuth
-    libsForQt5.kdeconnect-kde
     git
     firefox
     ktorrent
